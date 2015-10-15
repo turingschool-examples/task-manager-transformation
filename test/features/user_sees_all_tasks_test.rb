@@ -10,6 +10,7 @@ class UserSeesAllTasksTest < FeatureTest
   end
 
   def test_new_task_creation
+    skip
     visit("/")
     click_link("New Task")
 
@@ -25,6 +26,7 @@ class UserSeesAllTasksTest < FeatureTest
   end
 
   def test_user_can_edit_a_task
+    skip
     create_tasks(1)
 
     visit "/tasks"
@@ -40,6 +42,7 @@ class UserSeesAllTasksTest < FeatureTest
   end
 
   def test_user_can_delete_a_task
+    skip
     create_tasks(1)
     
     visit "/tasks"
@@ -49,6 +52,7 @@ class UserSeesAllTasksTest < FeatureTest
   end
 
   def test_a_user_can_see_a_single_task
+    skip
     create_tasks(1)
 
     visit "/tasks"

@@ -19,18 +19,21 @@ class TaskManagerTest < Minitest::Test
   end
 
   def test_it_finds_all_tasks
+    skip
     create_tasks(2)
 
     assert_equal 2, TaskManager.all.count
   end
 
   def test_it_finds_a_task_by_id
+    skip
     create_tasks(2)
 
     assert_equal "1 title", TaskManager.find(1).title
   end
 
   def test_it_updates_a_task
+    skip
     create_tasks(1)
 
     TaskManager.update(1, {title: "new title", description: "new description"})
@@ -42,6 +45,7 @@ class TaskManagerTest < Minitest::Test
   end
 
   def test_it_deletes_a_task
+    skip
     create_tasks(3)
     total = TaskManager.all.count
 

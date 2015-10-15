@@ -2,6 +2,7 @@ require_relative '../test_helper'
 
 class TaskTest < Minitest::Test 
   def test_attributes_are_assigned_correctly
+    skip
     task = Task.new({ "id"          => "1",
                       "title"       => "My Task",
                       "description" => "get stuff done"})

@@ -10,7 +10,6 @@ class TaskManagerTest < Minitest::Test
 
   def test_it_creates_a_task
     create_tasks(1)
-
     task = TaskManager.find(TaskManager.all.first.id)
 
     assert_equal "1 title", task.title
@@ -19,26 +18,23 @@ class TaskManagerTest < Minitest::Test
   end
 
   def test_it_finds_all_tasks
-    skip
     create_tasks(2)
 
     assert_equal 2, TaskManager.all.count
   end
 
   def test_it_finds_a_task_by_id
-    skip
     create_tasks(2)
 
-    assert_equal "1 title", TaskManager.find(1).title
+    assert_equal "1 title", TaskManager.find(TaskManager.all.first.id).title
   end
 
   def test_it_updates_a_task
-    skip
     create_tasks(1)
 
-    TaskManager.update(1, {title: "new title", description: "new description"})
+    TaskManager.update(TaskManager.all.first.id, {title: "new title", description: "new description"})
 
-    task = TaskManager.find(1)
+    task = TaskManager.find(TaskManager.all.first.id)
 
     assert_equal "new title", task.title
     assert_equal "new description", task.description

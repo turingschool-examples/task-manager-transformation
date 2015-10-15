@@ -14,11 +14,13 @@ class TaskManager
   end
 
   def self.update(id, data)
-    database.transaction do
-      target = database['tasks'].find { |task| task["id"] == id }
-      target["title"] = data[:title]
-      target["description"] = data[:description]
-    end
+    task = database.from(:tasks).where(:id => id)
+    task.update(:title => data[:title], :description => data[:description])
+    # database.transaction do
+    #   target = database['tasks'].find { |task| task["id"] == id }
+    #   target["title"] = data[:title]
+    #   target["description"] = data[:description]
+    # end
   end
 
   def self.delete(id)

@@ -11,7 +11,7 @@ class TaskManagerTest < Minitest::Test
   def test_it_creates_a_task
     create_tasks(1)
 
-    task = TaskManager.find(1)
+    task = TaskManager.find(TaskManager.all.first.id)
 
     assert_equal "1 title", task.title
     assert_equal "1 description", task.description

@@ -31,7 +31,8 @@ class TaskManager
   end
 
   def self.find_by(input)
-    database.where(input.keys.first => input.keys.last)
+    raw_tasks = dataset.where(input.keys.first => input.values.first).to_a
+    raw_tasks.map { |data| Task.new(data) }
   end
 
   def self.dataset

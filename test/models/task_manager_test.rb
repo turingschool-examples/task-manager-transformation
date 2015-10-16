@@ -41,7 +41,6 @@ class TaskManagerTest < Minitest::Test
   end
 
   def test_it_deletes_a_task
-    skip
     create_tasks(3)
     total = TaskManager.all.count
 

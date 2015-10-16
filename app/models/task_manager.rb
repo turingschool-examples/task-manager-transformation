@@ -1,5 +1,3 @@
-require 'yaml/store'
-
 class TaskManager
   def self.database
     if ENV["RACK_ENV"] == "test"
@@ -10,46 +8,29 @@ class TaskManager
   end
 
   def self.create(task)
-    database.from(:tasks).insert(title: task[:title], description: task[:description])
+    dataset.insert(task)
   end
 
   def self.update(id, data)
-    task = database.from(:tasks).where(:id => id)
-    task.update(:title => data[:title], :description => data[:description])
-    # database.transaction do
-    #   target = database['tasks'].find { |task| task["id"] == id }
-    #   target["title"] = data[:title]
-    #   target["description"] = data[:description]
-    # end
+    task = dataset.where(:id => id)
+    task.update(data)
   end
 
   def self.delete(id)
-    database.transaction do
-      database['tasks'].delete_if { |task| task["id"] == id }
-    end
-  end
-
-  def self.raw_tasks
-    database.transaction do
-      database['tasks'] || []
-    end
+    dataset.where(:id=>id).delete
   end
 
   def self.all
-    tasks = database.from(:tasks).to_a
+    tasks = dataset.to_a
     tasks.map { |data| Task.new(data) }
   end
 
-  def self.raw_task(id)
-    raw_tasks.find { |task| task["id"] == id }
-  end
-
   def self.find(id)
-    task = database.from(:tasks).where(:id=>id).to_a.first
+    task = dataset.where(:id=>id).to_a.first
     Task.new(task)
   end
 
-  def self.delete_all
-    database.from(:tasks).delete
+  def self.dataset
+    database.from(:tasks)
   end
 end

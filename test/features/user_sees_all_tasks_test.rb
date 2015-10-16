@@ -52,11 +52,32 @@ class UserSeesAllTasksTest < FeatureTest
   def test_a_user_can_see_a_single_task
     create_tasks(1)
     task = TaskManager.all.last
-    
+
     visit "/tasks"
 
     click_link("1 title")
     assert_equal "/tasks/#{task.id}", current_path
     assert page.has_content?("1 description")
+  end
+
+  def test_filter_task_index_by_param
+    create_tasks(2)
+    TaskManager.create({ :title       => "dogsitting",
+                         :description => "Friday"})
+    TaskManager.create({ :title       => "dogsitting",
+                         :description => "Saturday"})
+
+    visit "/tasks?title=dogsitting"
+
+    selected_tasks = TaskManager.all.select { |task| task.title == "dogsitting"}
+
+    selected_tasks.each do |task|
+      within(".task-#{task.id}") do
+        assert page.has_content?("dogsitting")
+      end
+    end
+
+    refute page.has_content?("1 title")
+    refute page.has_content?("2 title")
   end
 end

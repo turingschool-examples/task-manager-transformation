@@ -4,7 +4,11 @@ class TaskManagerApp < Sinatra::Base
   end
 
   get '/tasks' do
-    @tasks = TaskManager.all
+    if params[:title]
+      TaskManager.find_by(tilte: params[:title])
+    else
+      @tasks = TaskManager.all
+    end
     erb :index
   end
 

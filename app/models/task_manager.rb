@@ -30,6 +30,10 @@ class TaskManager
     Task.new(task)
   end
 
+  def self.find_by(input)
+    database.where(input.keys.first => input.keys.last)
+  end
+
   def self.dataset
     database.from(:tasks)
   end
